@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
+    Item findByItemIdentifier(String itemId);
+
     @Override
-    Iterable<Item> findAllById(Iterable<Long> longs);
+    Iterable<Item> findAll();
 }

@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,5 +29,22 @@ public class ItemController {
 
         Item item1 = itemService.saveOrUpdateItem(item);
         return new ResponseEntity<Item>(item, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{itemId}")
+    public ResponseEntity<?> getItemById(@PathVariable String itemId) {
+        Item item = itemService.findItemByIdentifier(itemId);
+        return new ResponseEntity<Item>(item, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public Iterable<Item> getAllItems() {
+        return itemService.findAllItems();
+    }
+
+    @DeleteMapping("/{itemId}")
+    public ResponseEntity<?> deleteItem(@PathVariable String itemId) {
+        itemService.deleteItemByIdentifier(itemId);
+        return new ResponseEntity<String>("Item with ID: '" + itemId +"' was deleted Successfully", HttpStatus.OK);
     }
 }
