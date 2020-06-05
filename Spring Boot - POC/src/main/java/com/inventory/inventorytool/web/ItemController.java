@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/item")
+@CrossOrigin
 public class ItemController {
 
     @Autowired
