@@ -8,6 +8,8 @@ import AddItem from "./components/Item/AddItem";
 import { Provider } from "react-redux";
 import store from "./store";
 import UpdateItems from "./components/Item/UpdateItems";
+import ItemBoard from "./components/ItemBoard/ItemBoard";
+import AddItemTask from "./components/ItemBoard/ItemTasks/AddItemTask";
 
 class App extends Component {
   render() {
@@ -16,13 +18,11 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
-            <Route exact path="/dashboard" component={Dashboard}></Route>
-            <Route exact path="/addItem" component={AddItem}></Route>
-            <Route
-              exact
-              path="/updateItems/:id"
-              component={UpdateItems}
-            ></Route>
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/addItem" component={AddItem} />
+            <Route exact path="/updateItems/:id" component={UpdateItems} />
+            <Route exact path="/itemBoard/:id" component={ItemBoard}></Route>
+            <Route exact path="/addItemTask/:id" component={AddItemTask} />
           </div>
         </Router>
       </Provider>

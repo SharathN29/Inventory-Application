@@ -3,7 +3,7 @@ import { GET_ERRORS, GET_ITEMS, GET_ITEM, DELETE_ITEM } from "./types";
 
 export const createItem = (item, history) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/item", item);
+    await axios.post("/api/item", item);
     history.push("/dashboard");
     dispatch({
       type: GET_ERRORS,
