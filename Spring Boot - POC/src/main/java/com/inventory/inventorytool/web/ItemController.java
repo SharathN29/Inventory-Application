@@ -29,7 +29,7 @@ public class ItemController {
         if(errorMap != null) return errorMap;
 
         Item item1 = itemService.saveOrUpdateItem(item);
-        return new ResponseEntity<Item>(item, HttpStatus.CREATED);
+        return new ResponseEntity<Item>(item1, HttpStatus.CREATED);
     }
 
     @GetMapping("/{itemId}")

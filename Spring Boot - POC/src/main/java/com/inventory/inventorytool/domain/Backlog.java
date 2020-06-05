@@ -1,9 +1,10 @@
 package com.inventory.inventorytool.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Backlog {
@@ -17,8 +18,14 @@ public class Backlog {
     private String itemIdentifier;
 
     // One-To-One mapping with Item
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "item_id", nullable = false)
+    @JsonIgnore
+    private Item item;
 
     // One-To-Many with Item Tasks
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
+    private List<ItemTask> itemTasks = new ArrayList<>();
 
     public Backlog() {
 
@@ -46,5 +53,21 @@ public class Backlog {
 
     public void setItemIdentifier(String itemIdentifier) {
         this.itemIdentifier = itemIdentifier;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public List<ItemTask> getItemTasks() {
+        return itemTasks;
+    }
+
+    public void setItemTasks(List<ItemTask> itemTasks) {
+        this.itemTasks = itemTasks;
     }
 }

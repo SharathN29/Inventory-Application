@@ -1,5 +1,7 @@
 package com.inventory.inventorytool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -7,10 +9,11 @@ import java.util.Date;
 @Entity
 public class ItemTask {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(updatable = false)
+    @Column(updatable = false, unique = true)
     private String itemSequence;
 
     @NotBlank(message = "Please include a item summary")
@@ -25,6 +28,10 @@ public class ItemTask {
     private Date dueDate;
 
     // Many-To-One with backlog
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
 
     @Column(updatable = false)
     private String itemIdentifier;
@@ -115,6 +122,14 @@ public class ItemTask {
 
     public void setUpdated_At(Date updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 
     @PrePersist

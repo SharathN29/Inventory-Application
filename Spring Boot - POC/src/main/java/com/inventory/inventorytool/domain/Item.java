@@ -1,6 +1,7 @@
 package com.inventory.inventorytool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -37,6 +38,10 @@ public class Item {
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "item")
+    @JsonIgnore
+    private Backlog backlog;
 
     public Item() {
 
@@ -104,6 +109,14 @@ public class Item {
 
     public void setUpdated_At(Date updated_At) {
         this.updated_At = updated_At;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 
     @PrePersist
