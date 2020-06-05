@@ -1,6 +1,14 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { deleteItem } from "../../actions/itemActions";
 
 class EachItem extends Component {
+  onDeleteClick = (id) => {
+    this.props.deleteItem(id);
+  };
+
   render() {
     const { item } = this.props;
     return (
@@ -21,16 +29,18 @@ class EachItem extends Component {
                     <i className="fa fa-flag-checkered pr-1"> Item Board </i>
                   </li>
                 </a>
-                <a href="#">
+                <Link to={`/updateItems/${item.itemIdentifier}`}>
                   <li className="list-group-item update">
                     <i className="fa fa-edit pr-1"> Update Order Info</i>
                   </li>
-                </a>
-                <a href="">
-                  <li className="list-group-item delete">
-                    <i className="fa fa-minus-circle pr-1"> Delete Order</i>
-                  </li>
-                </a>
+                </Link>
+
+                <li
+                  className="list-group-item delete"
+                  onClick={this.onDeleteClick.bind(this, item.itemIdentifier)}
+                >
+                  <i className="fa fa-minus-circle pr-1"> Delete Order</i>
+                </li>
               </ul>
             </div>
           </div>
@@ -39,4 +49,9 @@ class EachItem extends Component {
     );
   }
 }
-export default EachItem;
+
+EachItem.propTypes = {
+  deleteItem: PropTypes.func.isRequired,
+};
+
+export default connect(null, { deleteItem })(EachItem);

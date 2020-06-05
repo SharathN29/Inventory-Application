@@ -12,7 +12,7 @@ class AddItem extends Component {
       itemName: "",
       itemIdentifier: "",
       description: "",
-      quantity: null,
+      quantity: "",
       order_date: "",
       errors: {},
     };

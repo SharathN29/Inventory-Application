@@ -26,12 +26,13 @@ public class Item {
     private String description;
 
     @NotBlank(message = "Item quantity is required")
-    private int quantity;
+    private String quantity;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date order_date;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
+    @Column(updatable = false)
     private Date created_At;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
@@ -73,11 +74,11 @@ public class Item {
         this.description = description;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
