@@ -1,0 +1,9 @@
+package com.inventory.inventorytool.repositories;
+
+import com.inventory.inventorytool.domain.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+}
