@@ -10,6 +10,7 @@ import store from "./store";
 import UpdateItems from "./components/Item/UpdateItems";
 import ItemBoard from "./components/ItemBoard/ItemBoard";
 import AddItemTask from "./components/ItemBoard/ItemTasks/AddItemTask";
+import UpdateItemTask from "./components/ItemBoard/ItemTasks/UpdateItemTask";
 
 class App extends Component {
   render() {
@@ -23,6 +24,11 @@ class App extends Component {
             <Route exact path="/updateItems/:id" component={UpdateItems} />
             <Route exact path="/itemBoard/:id" component={ItemBoard}></Route>
             <Route exact path="/addItemTask/:id" component={AddItemTask} />
+            <Route
+              exact
+              path="/updateItemTask/:backlog_id/:it_id"
+              component={UpdateItemTask}
+            />
           </div>
         </Router>
       </Provider>

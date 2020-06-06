@@ -37,7 +37,7 @@ public class ItemTaskService {
             itemTask.setItemSequence(itemIdentifier+"-"+BacklogSequence);
             itemTask.setItemIdentifier(itemIdentifier);
 
-            if(itemTask.getPriority() == null) {
+            if(itemTask.getPriority() == 0 ||  itemTask.getPriority() == null) {
                 itemTask.setPriority(3);
             }
 

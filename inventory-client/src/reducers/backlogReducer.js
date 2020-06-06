@@ -22,6 +22,9 @@ export default function (state = initialState, action) {
     case DELETE_ITEM_TASK:
       return {
         ...state,
+        item_tasks: state.item_tasks.filter(
+          (item_task) => item_task.itemSequence !== action.payload
+        ),
       };
 
     default:
