@@ -11,4 +11,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 
     @Override
     Iterable<Item> findAll();
+
+    Iterable<Item> findAllByItemOrderCreator(String username);
 }

@@ -1,7 +1,6 @@
 package com.inventory.inventorytool.services;
 
 import com.inventory.inventorytool.domain.Backlog;
-import com.inventory.inventorytool.domain.Item;
 import com.inventory.inventorytool.domain.ItemTask;
 import com.inventory.inventorytool.exceptions.ItemNotFoundException;
 import com.inventory.inventorytool.repositories.BacklogRepository;
@@ -22,51 +21,45 @@ public class ItemTaskService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public ItemTask addItemTask(String itemIdentifier, ItemTask itemTask) {
+    @Autowired
+    private ItemService itemService;
+
+    public ItemTask addItemTask(String itemIdentifier, ItemTask itemTask, String username) {
 
         // Exception : when item is not found
 
-        try {
-            Backlog backlog = backlogRepository.findByItemIdentifier(itemIdentifier);
-            itemTask.setBacklog(backlog);
+        Backlog backlog = itemService.findItemByIdentifier(itemIdentifier, username).getBacklog(); //backlogRepository.findByItemIdentifier(itemIdentifier);
+        itemTask.setBacklog(backlog);
 
-            Integer BacklogSequence = backlog.getITSequence();
-            BacklogSequence++;
-            backlog.setITSequence(BacklogSequence);
+        Integer BacklogSequence = backlog.getITSequence();
+        BacklogSequence++;
+        backlog.setITSequence(BacklogSequence);
 
-            itemTask.setItemSequence(itemIdentifier+"-"+BacklogSequence);
-            itemTask.setItemIdentifier(itemIdentifier);
+        itemTask.setItemSequence(itemIdentifier+"-"+BacklogSequence);
+        itemTask.setItemIdentifier(itemIdentifier);
 
-            if(itemTask.getPriority() == 0 ||  itemTask.getPriority() == null) {
-                itemTask.setPriority(3);
-            }
-
-            if(itemTask.getStatus() == "" || itemTask.getStatus() == null) {
-                itemTask.setStatus("TO_DO");
-            }
-
-            return itemTaskRepository.save(itemTask);
-        } catch (Exception e) {
-            throw new ItemNotFoundException("Item Not Found");
+        if(itemTask.getPriority() == null ||  itemTask.getPriority() == 0) {
+            itemTask.setPriority(3);
         }
+
+        if(itemTask.getStatus() == "" || itemTask.getStatus() == null) {
+            itemTask.setStatus("TO_DO");
+        }
+
+        return itemTaskRepository.save(itemTask);
+
 
     }
 
-    public Iterable<ItemTask> findBacklogById(String id) {
+    public Iterable<ItemTask> findBacklogById(String id, String username) {
 
-        Item item = itemRepository.findByItemIdentifier(id);
-        if(item == null) {
-            throw new ItemNotFoundException("Item with ID: '"+id+"' does not exist");
-        }
+        itemService.findItemByIdentifier(id, username);
         return itemTaskRepository.findByItemIdentifierOrderByPriority(id);
     }
 
-    public ItemTask findITByItemSequence(String backlog_id, String it_id) {
+    public ItemTask findITByItemSequence(String backlog_id, String it_id, String username) {
 
-        Backlog backlog = backlogRepository.findByItemIdentifier(backlog_id);
-        if(backlog == null) {
-            throw new ItemNotFoundException("Item with ID: '"+backlog_id+"' does not exist");
-        }
+        itemService.findItemByIdentifier(backlog_id , username);
 
         ItemTask itemTask = itemTaskRepository.findByItemSequence(it_id);
         if(itemTask == null) {
@@ -80,16 +73,16 @@ public class ItemTaskService {
         return itemTask;
     }
 
-    public ItemTask updateByItemSequence(ItemTask updatedTask, String backlog_id, String it_id) {
+    public ItemTask updateByItemSequence(ItemTask updatedTask, String backlog_id, String it_id, String username) {
 
-        ItemTask itemTask = findITByItemSequence(backlog_id, it_id);
+        ItemTask itemTask = findITByItemSequence(backlog_id, it_id, username);
         itemTask = updatedTask;
         return itemTaskRepository.save(itemTask);
     }
 
-    public void deleteITByItemSequence(String backlog_id, String it_id) {
+    public void deleteITByItemSequence(String backlog_id, String it_id, String username) {
 
-        ItemTask itemTask = findITByItemSequence(backlog_id, it_id);
+        ItemTask itemTask = findITByItemSequence(backlog_id, it_id, username);
         itemTaskRepository.delete(itemTask);
     }
 }

@@ -43,6 +43,12 @@ public class Item {
     @JsonIgnore
     private Backlog backlog;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String itemOrderCreator;
+
     public Item() {
 
     }
@@ -117,6 +123,22 @@ public class Item {
 
     public void setBacklog(Backlog backlog) {
         this.backlog = backlog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getItemOrderCreator() {
+        return itemOrderCreator;
+    }
+
+    public void setItemOrderCreator(String itemOrderCreator) {
+        this.itemOrderCreator = itemOrderCreator;
     }
 
     @PrePersist
