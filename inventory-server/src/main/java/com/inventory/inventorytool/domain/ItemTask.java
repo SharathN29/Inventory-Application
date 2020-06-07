@@ -1,5 +1,6 @@
 package com.inventory.inventorytool.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class ItemTask {
 
     private Integer priority;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dueDate;
 
     // Many-To-One with backlog
@@ -36,8 +38,10 @@ public class ItemTask {
     @Column(updatable = false)
     private String itemIdentifier;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date created_At;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
 
     public ItemTask() {

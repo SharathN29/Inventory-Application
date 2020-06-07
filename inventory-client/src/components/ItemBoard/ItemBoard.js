@@ -38,6 +38,12 @@ class ItemBoard extends Component {
               {errors.itemNotFound}
             </div>
           );
+        } else if (errors.itemIdentifier) {
+          return (
+            <div className="alert alert-danger text-center" role="alert">
+              {errors.itemIdentifier}
+            </div>
+          );
         } else {
           return (
             <div class="alert alert-info text-center" role="alert">
