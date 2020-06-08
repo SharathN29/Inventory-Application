@@ -87,8 +87,8 @@ Sharath Nagendra - [@SharathN29](https://twitter.com/SharathN29) - nsharathn@gma
 [stars-url]: https://github.com/SharathN29/Inventory-Application/stargazers
 [issues-shield]: https://img.shields.io/github/issues/SharathN29/Inventory-Application.svg?style=flat-square
 [issues-url]: https://github.com/SharathN29/Inventory-Application/issues
-[license-shield]: https://img.shields.io/github/license/SharathN29/Inventory-Application.svg?style=flat-square
-[license-url]: https://github.com/SharathN29/Inventory-Application/blob/master/LICENSE
+[license-shield]:https://img.shields.io/github/license/SharathN29/Inventory-Application
+[license-url]:https://github.com/SharathN29/Inventory-Application/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/sharath-nagendra/
 
