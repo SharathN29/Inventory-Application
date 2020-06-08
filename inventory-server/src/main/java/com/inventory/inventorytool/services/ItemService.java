@@ -28,7 +28,7 @@ public class ItemService {
         if (item.getId() != null) {
             Item existingItem = itemRepository.findByItemIdentifier(item.getItemIdentifier());
 
-            if(existingItem != null && (!existingItem.getItemOrderCreator().equals(username))) {
+            if (existingItem != null && (!existingItem.getItemOrderCreator().equals(username))) {
                 throw new ItemNotFoundException("Project not found in your account");
             } else if (existingItem == null) {
                 throw new ItemNotFoundException("Project with ID: '" + item.getItemIdentifier() + "' does not exist");
@@ -41,19 +41,19 @@ public class ItemService {
             item.setItemOrderCreator(user.getUsername());
             item.setItemIdentifier(item.getItemIdentifier().toUpperCase());
 
-            if(item.getId() == null) {
+            if (item.getId() == null) {
                 Backlog backlog = new Backlog();
                 item.setBacklog(backlog);
                 backlog.setItem(item);
                 backlog.setItemIdentifier(item.getItemIdentifier().toUpperCase());
             }
 
-            if(item.getId() != null) {
+            if (item.getId() != null) {
                 item.setBacklog(backlogRepository.findByItemIdentifier(item.getItemIdentifier().toUpperCase()));
             }
             return itemRepository.save(item);
         } catch (Exception e) {
-            throw new ItemIdException("Item ID '" + item.getItemIdentifier().toUpperCase()+"' already exists");
+            throw new ItemIdException("Item ID '" + item.getItemIdentifier().toUpperCase() + "' already exists");
         }
     }
 
@@ -61,10 +61,10 @@ public class ItemService {
 
         Item item = itemRepository.findByItemIdentifier(itemId.toUpperCase());
         if (item == null) {
-            throw new ItemIdException("Item ID '" + itemId +"' does not exists");
+            throw new ItemIdException("Item ID '" + itemId + "' does not exists");
         }
 
-        if(!item.getItemOrderCreator().equals(username)) {
+        if (!item.getItemOrderCreator().equals(username)) {
             throw new ItemNotFoundException("Item not found in your account");
         }
 

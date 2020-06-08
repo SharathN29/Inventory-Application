@@ -27,7 +27,7 @@ public class BacklogController {
     public ResponseEntity<?> addITtoBacklog(@Valid @RequestBody ItemTask itemTask, BindingResult result, @PathVariable String backlog_id, Principal principal) {
 
         ResponseEntity<?> errMap = mapValidationErrorService.MapValidationService(result);
-        if(errMap != null) return errMap;
+        if (errMap != null) return errMap;
 
         ItemTask itemTask1 = itemTaskService.addItemTask(backlog_id, itemTask, principal.getName());
         return new ResponseEntity<ItemTask>(itemTask1, HttpStatus.CREATED);
@@ -48,7 +48,7 @@ public class BacklogController {
     public ResponseEntity<?> updateItemTask(@Valid @RequestBody ItemTask itemTask, BindingResult result, @PathVariable String backlog_id, @PathVariable String it_id, Principal principal) {
 
         ResponseEntity<?> errMap = mapValidationErrorService.MapValidationService(result);
-        if(errMap != null) return errMap;
+        if (errMap != null) return errMap;
 
         ItemTask updatedTask = itemTaskService.updateByItemSequence(itemTask, backlog_id, it_id, principal.getName());
         return new ResponseEntity<ItemTask>(updatedTask, HttpStatus.OK);

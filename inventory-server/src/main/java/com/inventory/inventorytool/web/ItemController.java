@@ -26,8 +26,8 @@ public class ItemController {
     @PostMapping("")
     public ResponseEntity<?> createNewItem(@Valid @RequestBody Item item, BindingResult result, Principal principal) {
 
-        ResponseEntity<?> errorMap= mapValidationErrorService.MapValidationService(result);
-        if(errorMap != null) return errorMap;
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) return errorMap;
 
         Item item1 = itemService.saveOrUpdateItem(item, principal.getName());
         return new ResponseEntity<Item>(item1, HttpStatus.CREATED);
@@ -47,6 +47,6 @@ public class ItemController {
     @DeleteMapping("/{itemId}")
     public ResponseEntity<?> deleteItem(@PathVariable String itemId, Principal principal) {
         itemService.deleteItemByIdentifier(itemId, principal.getName());
-        return new ResponseEntity<String>("Item with ID: '" + itemId +"' was deleted Successfully", HttpStatus.OK);
+        return new ResponseEntity<String>("Item with ID: '" + itemId + "' was deleted Successfully", HttpStatus.OK);
     }
 }

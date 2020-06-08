@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
-        if(user == null) {
+        if (user == null) {
             new UsernameNotFoundException("user not found");
         }
         return user;
@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public User loadUserById(Long id) {
         User user = userRepository.getById(id);
 
-        if(user == null) {
+        if (user == null) {
             new UsernameNotFoundException("user not found");
         }
         return user;

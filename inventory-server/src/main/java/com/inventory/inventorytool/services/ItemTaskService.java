@@ -35,14 +35,14 @@ public class ItemTaskService {
         BacklogSequence++;
         backlog.setITSequence(BacklogSequence);
 
-        itemTask.setItemSequence(itemIdentifier+"-"+BacklogSequence);
+        itemTask.setItemSequence(itemIdentifier + "-" + BacklogSequence);
         itemTask.setItemIdentifier(itemIdentifier);
 
-        if(itemTask.getPriority() == null ||  itemTask.getPriority() == 0) {
+        if (itemTask.getPriority() == null || itemTask.getPriority() == 0) {
             itemTask.setPriority(3);
         }
 
-        if(itemTask.getStatus() == "" || itemTask.getStatus() == null) {
+        if (itemTask.getStatus() == "" || itemTask.getStatus() == null) {
             itemTask.setStatus("TO_DO");
         }
 
@@ -59,15 +59,15 @@ public class ItemTaskService {
 
     public ItemTask findITByItemSequence(String backlog_id, String it_id, String username) {
 
-        itemService.findItemByIdentifier(backlog_id , username);
+        itemService.findItemByIdentifier(backlog_id, username);
 
         ItemTask itemTask = itemTaskRepository.findByItemSequence(it_id);
-        if(itemTask == null) {
-            throw new ItemNotFoundException("Item task '"+it_id+"' not found");
+        if (itemTask == null) {
+            throw new ItemNotFoundException("Item task '" + it_id + "' not found");
         }
 
-        if(!itemTask.getItemIdentifier().equals(backlog_id)) {
-            throw new ItemNotFoundException("Item task '" + it_id +"' does not exist in item : '" + backlog_id);
+        if (!itemTask.getItemIdentifier().equals(backlog_id)) {
+            throw new ItemNotFoundException("Item task '" + it_id + "' does not exist in item : '" + backlog_id);
         }
 
         return itemTask;

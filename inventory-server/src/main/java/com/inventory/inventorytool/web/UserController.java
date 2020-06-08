@@ -46,7 +46,7 @@ public class UserController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
 
         ResponseEntity<?> errMap = mapValidationErrorService.MapValidationService(result);
-        if(errMap != null) return errMap;
+        if (errMap != null) return errMap;
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -67,10 +67,10 @@ public class UserController {
         userValidator.validate(user, result);
 
         ResponseEntity<?> errMap = mapValidationErrorService.MapValidationService(result);
-        if(errMap != null) return errMap;
+        if (errMap != null) return errMap;
 
         User newUser = userService.saveUser(user);
 
-        return new ResponseEntity<User>(newUser,HttpStatus.CREATED);
+        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 }
